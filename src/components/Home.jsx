@@ -11,7 +11,6 @@ const Home = () => {
     dispatch(getUser());
   }, []);
   const users = useSelector((state) => state.users.users);
-
   const handleDelete = (id) => {
     dispatch(deleteUser(id));
   };
@@ -66,4 +65,5 @@ const Home = () => {
     </div>
   );
 };
+
 export default Home;
