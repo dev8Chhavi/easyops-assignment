@@ -19,7 +19,7 @@ const Home = () => {
       <div>
         <nav className="navbar bg-body-tertiary">
           <div className="container-fluid">
-            <span className="navbar-text">User Management System</span>
+            <span className="navbar-text h2">Customer Data Management System</span>
             <span className="">Total Users - {users.length}</span>
           </div>
         </nav>
