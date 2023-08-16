@@ -2,24 +2,21 @@ import { useState } from "react";
 import { addUser } from "../redux/userReducer";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 const CreateUser = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const users = useSelector((state) => state.users);
+  const users = useSelector((state) => state.users.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(users.length);
     dispatch(
       addUser({ id: users[users.length - 1].id + 1, name, email, phone })
     );
     navigate("/");
   };
-
   return (
     <div className="d-flex w-100 vh-100 justify-content-center align-items-center">
       <div className="w-50 border bg-secondary text-white p-5">
@@ -59,5 +56,4 @@ const CreateUser = () => {
     </div>
   );
 };
-
 export default CreateUser;
