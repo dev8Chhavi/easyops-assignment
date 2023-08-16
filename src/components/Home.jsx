@@ -3,25 +3,24 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   const users = useSelector((state) => state.users);
-  console.log(users);
+
   return (
     <div className="container">
       <div>
         <nav className="navbar bg-body-tertiary">
           <div className="container-fluid">
-            <span className="navbar-text h2" >Customer Data Management System </span>
+            <span className="navbar-text">User Management System</span>
           </div>
         </nav>
       </div>
       <Link to="/create" className="btn btn-success my-3">
-        {" "}
-        Add User{" "}
+        Add User
       </Link>
       <table className="table">
         <thead>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Action</th>
+          <th width="30%">ID</th>
+          <th width="40%">Name</th>
+          <th width="30%">Action</th>
         </thead>
         <tbody>
           {users.map((user) => (
@@ -29,9 +28,18 @@ const Home = () => {
               <td>{user.id}</td>
               <td>{user.name}</td>
               <td>
-                <button className="btn btn-sm btn-primary mx-1">View</button>
-                <button className="btn btn-sm btn-success mx-1">Edit</button>
-                <button className="btn btn-sm btn-danger mx-1">Delete</button>
+                <button className="btn btn-sm btn-primary mx-1 my-1 ">
+                  View
+                </button>
+                <Link
+                  to={`/update/${user.id}`}
+                  className="btn btn-sm btn-success mx-1 my-1 "
+                >
+                  Edit
+                </Link>
+                <button className="btn btn-sm btn-danger mx-1 my-1 ">
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
@@ -40,5 +48,4 @@ const Home = () => {
     </div>
   );
 };
-
 export default Home;

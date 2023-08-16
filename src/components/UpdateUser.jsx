@@ -1,29 +1,32 @@
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { addUser } from "../redux/userReducer";
+import { updateUser } from "../redux/userReducer";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 
-const CreateUser = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const users = useSelector((state) => state.users);
-  const dispatch = useDispatch();
+const UpdateUser = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const users = useSelector((state) => state.users);
+  const existingUser = users.filter((f) => f.id == id);
+  const { name, email, phone } = existingUser[0];
+  const [zname, setName] = useState(name);
+  const [zemail, setEmail] = useState(email);
+  const [zphone, setPhone] = useState(phone);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(users.length);
-    dispatch(
-      addUser({ id: users[users.length - 1].id + 1, name, email, phone })
-    );
+    dispatch(updateUser({ id: id, name: zname, email: zemail, phone: zphone }));
     navigate("/");
   };
 
   return (
     <div className="d-flex w-100 vh-100 justify-content-center align-items-center">
       <div className="w-50 border bg-secondary text-white p-5">
-        <h3>Add New User</h3>
+        <h3>Update User</h3>
         <form onSubmit={handleSubmit}>
           <div className="my-4">
             <label htmlFor="name">Name</label>
@@ -31,6 +34,7 @@ const CreateUser = () => {
               type="text"
               name="name"
               className="form-control"
+              value={zname}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -40,7 +44,7 @@ const CreateUser = () => {
               type="email"
               name="email"
               className="form-control"
-              onChange={(e) => setEmail(e.target.value)}
+              value={zemail}
             />
           </div>
           <div className="my-4">
@@ -49,15 +53,15 @@ const CreateUser = () => {
               type="tel"
               name="phoneNumber"
               className="form-control"
-              onChange={(e) => setPhone(e.target.value)}
+              value={zphone}
             />
           </div>
           <br />
-          <button className="btn btn-info">Create</button>
+          <button className="btn btn-info">Update</button>
         </form>
       </div>
     </div>
   );
 };
 
-export default CreateUser;
+export default UpdateUser;
